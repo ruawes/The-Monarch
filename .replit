@@ -1,0 +1,26 @@
+entrypoint = "index.js"
+modules = ["nodejs-20"]
+
+[nix]
+channel = "stable-24_05"
+
+run = "npm install --prefer-offline && node index.js"
+
+[packager]
+language = "nodejs"
+
+[packager.features]
+packageSearch = true
+guessImports = true
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[deployment]
+run = ["node", "index.js"]
+deploymentTarget = "autoscale"
+build = ["npm", "install"]
+
+[agent]
+expertMode = true
